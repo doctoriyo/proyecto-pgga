@@ -27,45 +27,52 @@ class cc():
         self.e = 1  # coef restitución
         self.sale = False
 
-    def paredes(self, g_part, i):
+    def paredes(self, g_part, i, t, t_in):
 
-        if g_part[i].posicion[0] < self.left or g_part[i].posicion[0] > self.right:
+        if t >= t_in:
 
-            g_part[i].velocidad[0] = -self.e * g_part[i].velocidad[0]
+            if g_part[i].posicion[0] < self.left or g_part[i].posicion[0] > self.right or g_part[i].posicion[
+                1] < self.bottom or g_part[i].posicion[1] > self.top:
+                print('La particula' + str(i) + 'ha salido')
+        else:
 
-            if g_part[i].posicion[0] > self.right:
+            if g_part[i].posicion[0] < self.left or g_part[i].posicion[0] > self.right:
 
-                g_part[i].posicion[0] = self.right - (g_part[i].posicion[0] - self.right)
+                g_part[i].velocidad[0] = -self.e * g_part[i].velocidad[0]
 
-            elif g_part[i].posicion[0] < self.left:
+                if g_part[i].posicion[0] > self.right:
 
-                g_part[i].posicion[0] = self.left - (g_part[i].posicion[0] - self.left)
+                    g_part[i].posicion[0] = self.right - (g_part[i].posicion[0] - self.right)
 
-            self.sale = True
+                elif g_part[i].posicion[0] < self.left:
 
-            print("Se saleeee")
+                    g_part[i].posicion[0] = self.left - (g_part[i].posicion[0] - self.left)
 
-        if g_part[i].posicion[1] < self.bottom or g_part[i].posicion[1] > self.top:
+                self.sale = True
 
-            g_part[i].velocidad[1] = -self.e * g_part[i].velocidad[1]
+                print("Se saleeee")
 
-            if g_part[i].posicion[1] > self.top:
+            if g_part[i].posicion[1] < self.bottom or g_part[i].posicion[1] > self.top:
 
-                g_part[i].posicion[1] = self.top - (g_part[i].posicion[1] - self.top)
+                g_part[i].velocidad[1] = -self.e * g_part[i].velocidad[1]
 
-            elif g_part[i].posicion[1] < self.bottom:
+                if g_part[i].posicion[1] > self.top:
 
-                g_part[i].posicion[1] = self.bottom - (g_part[i].posicion[1] - self.bottom)
+                    g_part[i].posicion[1] = self.top - (g_part[i].posicion[1] - self.top)
 
-            self.sale = True
+                elif g_part[i].posicion[1] < self.bottom:
 
-            print("Se saleeee")
+                    g_part[i].posicion[1] = self.bottom - (g_part[i].posicion[1] - self.bottom)
 
-        return self.sale
+                self.sale = True
+
+                print("Se saleeee")
+
+            return self.sale
 
 
 class metodos():
-    def __init__(self, n, g_part, vel, dt, alpha):
+    def __init__(self, n, g_part, vel, dt, alpha, t, t_in):
 
         self.n = n
         self.theta_m = 0
@@ -82,31 +89,35 @@ class metodos():
             s_x = g_part[i].velocidad[0]
             s_y = g_part[i].velocidad[1]
 
-            # for j in range(n):
+            '''''
+            for j in range(n):
 
-            #   if 0 < norm(np.array(g_part[i].posicion) - np.array(g_part[j].posicion))< r:
+                if 0 < norm(np.array(g_part[i].posicion) - np.array(g_part[j].posicion))< r:
 
-            #      s_x = s_x + g_part[j].velocidad[0]
-            #     s_y = s_y + g_part[j].velocidad[1]
+                    s_x = s_x + g_part[j].velocidad[0]
+                    s_y = s_y + g_part[j].velocidad[1]
 
-            #    print('j',j)
+                    print('j',j)
+            '''''
+            if t >= t_in:
+                s_x = s_x + (g_part[i].posicion[0] - pos_foco[0])
+                s_y = s_y + (g_part[i].posicion[1] - pos_foco[1])
 
             # print("sx",s_x,"v",g_part[i].velocidad)
 
-
-            if s_x < 0.001 and s_y > 0:
+            if abs(s_x) < 0.0001 and s_y > 0:
 
                 theta_m = np.pi / 2
 
-            elif s_x < 0.001 and s_y < 0:
+            elif abs(s_x) < 0.0001 and s_y < 0:
 
                 theta_m = 3 * np.pi / 2
 
-            elif s_y < 0.001 and s_x < 0:
+            elif abs(s_y) < 0.0001 and s_x < 0:
 
                 theta_m = np.pi
 
-            elif s_y < 0.001 and s_x > 0:
+            elif abs(s_y) < 0.0001 and s_x > 0:
 
                 theta_m = 0
 
@@ -139,11 +150,10 @@ class metodos():
             g_part[i].velocidad = alpha * g_part[i].velocidad + \
                                   (1 - alpha) * self.vel * np.array(
                                       [np.cos(g_part[i].angulo), np.sin(g_part[i].angulo)])
-            g_part[i].velocidad = g_part[i].velocidad / norm(g_part[i].velocidad)
             g_part[i].posicion = g_part[i].posicion + dt * g_part[i].velocidad
 
             Cond = cc()
-            Cond.paredes(g_part, i)
+            Cond.paredes(g_part, i, t, t_in)
 
             print("¿Se sale? " + str(Cond.sale))
 
@@ -208,24 +218,18 @@ v_o = 1
 t = 0
 n = 5
 r = 3
-dt = 0.8
+dt = 1
 stop = 200
 alpha = 0.3  # Inercia a mantener la dirección del instante anterior
 
-# t_in = float(input("Introduzca el tiempo : "))
+t_in = float(input("Introduzca el tiempo : "))
 
-
-
-pos_foco = np.zeros(n)
+pos_foco = vec_aleat(1)
 p = np.zeros(n)
 pos = np.zeros(n)
 v = np.zeros(n)
 g_part = []
 print(g_part)
-
-pos_foco = vec_aleat(1)
-
-print('POS_FOCO ES' + str(pos_foco))
 
 for i in range(0, n):
     pos = vec_aleat(1)
@@ -244,6 +248,7 @@ for i in range(0, n):
 
 # print(g_part[0].posicion)
 # print(g_part[1].velocidad)
+
 plt.xlim(0, 50)
 plt.ylim(0, 50)
 
@@ -253,7 +258,7 @@ plt.ylim(0, 50)
 
 for t in range(stop):
 
-    Play = metodos(n, g_part, v_o, dt, alpha)
+    Play = metodos(n, g_part, v_o, dt, alpha, t, t_in)
     Play.thetamed()
     # print("Thetas med ", g_part.angulo)
     Play.actualiza()
@@ -266,5 +271,4 @@ for t in range(stop):
         visual(g_part, i, pos_foco).dibuja()
         visual(g_part, i, pos_foco).datos_vuelta(t)
         # print("tethas", np.degrees(g_part[i].angulo))
-
 plt.show()

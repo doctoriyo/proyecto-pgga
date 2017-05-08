@@ -14,12 +14,10 @@ def vec_aleat(k):
         
         vec = [np.random.randint(-10, 10), np.random.randint(-10, 10)]
         #print(vec)
-        
+
     return vec
 
 
-
-#CREAR MODULO CONDICIONES DE CONTORNO
 class cc():
     def __init__(self):
         
@@ -68,7 +66,6 @@ class cc():
 
 
 
-#CREAR MODULO METODOS
 class metodos():
     def __init__(self, n, g_part, vel, dt, alpha):
         
@@ -209,7 +206,7 @@ dt = 0.8
 stop = 100
 alpha = 0.3  #Inercia a mantener la dirección del instante anterior
 
-t_in = float(input("Introduzca el tiempo: "))
+#t_in = float(input("Introduzca el tiempo: "))
 
 
 pos_foco = np.zeros(n)
@@ -262,5 +259,3 @@ for t in range(stop):
         visual(g_part, i).datos_vuelta(t)
             #print("tethas", np.degrees(g_part[i].angulo))
 plt.show()
-            
-         
