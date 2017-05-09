@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Puntos</title>
+</head>
+<body>
+
+    <div id="#data_example2">
+        <svg width="500" height="500">
+            <circle id = "myCircle" cx="30" cy="50" r="30" ></circle>
+            <circle id = "myCircle" cx="100" cy="50" r="30" ></circle>
+            <circle id = "myCircle" cx="170" cy="50" r="30" ></circle>
+            <circle id = "myCircle" cx="240" cy="50" r="30" ></circle>
+            <circle id = "myCircle" cx="310" cy="50" r="30"  ></circle>
+        </svg>
+    </div>
+
+    <script>
+        circleData = [[10, "rgb(246, 239, 247)"], [15, "rgb(189,201,225)"],
+
+            [20, "rgb(103,169,207)"], [25, "rgb(28,144,153)"], [30, "rgb(1,108,89)"]];
+
+        //Select the div element
+        selectExample = d3.select("#data_example2");
+
+        //We'll select all the circle from within the selected <div> element
+        selectExample.selectAll("circle")
+            .data(circleData)
+            .attr("r", function(d){return d[0]})
+            .style("fill", function(d){return d[1]});
+    </script>
+
+</body>
+</html>
