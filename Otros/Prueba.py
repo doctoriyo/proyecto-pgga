@@ -151,7 +151,7 @@ t = 0
 n = 5
 r = 3
 dt = 1
-stop = 100
+stop = 200
 alpha = 0.3  # Inercia a mantener la dirección del instante anterior
 
 p = np.zeros(n)
