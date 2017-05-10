@@ -1,0 +1,36 @@
+html,
+body {
+    font-family: Arial;
+    font-size: x-large;
+}
+
+.size {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.size2 {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.tamrow {
+    padding: 50px 0;
+}
+
+.tamrow1 {
+    padding: 10px 0;
+}
+
+.centered {
+    text-align: center;
+}
+
+.backg {
+    background-color: deepskyblue;
+}
+
+svg{
+    display: block;
+    margin: auto;
+}

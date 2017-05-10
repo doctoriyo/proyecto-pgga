@@ -301,5 +301,3 @@ for t in range(stop):
         visual(g_part, i, pos_foco).datos_vuelta(t)
             #print("tethas", np.degrees(g_part[i].angulo))
 plt.show()
-            
-         

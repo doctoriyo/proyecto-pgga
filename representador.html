@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>REPRESENTAR PUNTOS</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+
+    <script>
+
+        var svg = d3.select("body").append("svg");
+
+        svg.attr("width", 250);
+        svg.attr("height", 250);
+
+        var line = svg.append("line");
+
+        line.attr("x1", 0);
+        line.attr("y1", 0);
+        line.attr("x2", 0);
+        line.attr("y2", 250);
+        line.attr("stroke", "black");
+        line.attr("stroke-width", 5);
+
+        var line = svg.append("line");
+
+        line.attr("x1", 0);
+        line.attr("y1", 0);
+        line.attr("x2", 250);
+        line.attr("y2", 0);
+        line.attr("stroke", "black");
+        line.attr("stroke-width", 5);
+
+        var line = svg.append("line");
+
+        line.attr("x1", 0);
+        line.attr("y1", 250);
+        line.attr("x2", 250);
+        line.attr("y2", 250);
+        line.attr("stroke", "black");
+        line.attr("stroke-width", 5);
+
+        var line = svg.append("line");
+
+        line.attr("x1", 250);
+        line.attr("y1", 0);
+        line.attr("x2", 250);
+        line.attr("y2", 250);
+        line.attr("stroke", "black");
+        line.attr("stroke-width", 5);
+
+        d3.csv("data.csv", type, function (matrizejemplo) {
+            matrizejemplo.forEach(function (d) {
+                console.log(d.x + "," + d.y);
+
+                var circle = svg.append("circle");
+
+                circle.attr("cx", d.x);
+                circle.attr("cy", d.y);
+                circle.attr("r", 3);
+
+            });
+        });
+
+        function type(d) {
+            d.x = parseFloat(d.x);
+            d.y = parseFloat(d.y);
+            return d;
+        }
+
+    </script>
+
+</body>
+</html>

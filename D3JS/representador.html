@@ -2,10 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>REPRESENTAR PUNTOS</title>
+    <title>REPRESENTADOR PUNTOS</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="representador.js"></script>
+    <link href="representador.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <div class="container">
+        <div class="row tamrow">
+            <div class="col-sm-12 centered size2">
+                SIMULADOR DE PARTICULAS
+            </div>
+        </div>
+        <div class="row tamrow1 size backg">
+            <div class="col-sm-6 centered">
+                Inserte número de partículas
+            </div>
+            <div class="col-sm-6 centered">
+            </div>
+        </div>
+        <div class="row tamrow1 size backg">
+            <div class="col-sm-6 centered">
+                <input id="numeroparticulas">
+            </div>
+            <div class="col-sm-6 centered">
+                <button class="btn btn-primary" type="button" onclick="myFunction()">Insertar</button>
+            </div>
+        </div>
+        <div class="row tamrow1 size backg">
+            <div class="col-sm-6 centered" id="texto">
+            </div>
+            <div class="col-sm-6 centered">
+            </div>
+        </div>
+        <div class="row tamrow1 size backg">
+            <div class="col-sm-6 centered">
+            </div>
+        </div>
+        <div class="row tamrow1 size">
+            <div class="col-sm-12 centered">
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <h1></h1>
+    <p>Inserte número de partículas</p>
+    <input id="numeroparticulas">
+    <button type="button" onclick="myFunction()">Insertar</button>
+    <p id="texto"></p>
+    -->
 
     <script>
 
@@ -70,6 +119,7 @@
         }
 
     </script>
+
 
 </body>
 </html>
