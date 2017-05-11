@@ -20,8 +20,12 @@
     };
     ws.onmessage = function(evt) {
       var newMessage = document.createElement('p');
+
+      var obj = evt.data;
+      newMessage.textContent = "Server: " + obj;
+
       var obj = JSON.parse(evt.data);
-      newMessage.textContent = "Server: " + obj.msg;
+      newMessage.textContent = "Server: " + obj.msg + obj.otro;
       document.getElementById('messages_txt').appendChild(newMessage);
     };
     ws.onclose = function(evt) {
@@ -33,7 +37,7 @@
 
       <!--With this line the dict format is constructed-->
       <!--note that the ` is crucial-->
-      var str1 = `{"msg": "${message || 'default'}", "otrallave": "valor" }`;
+      var str1 = `{"msg": "${message || 'default'}", "npart": "valor" }`;
       ws.send(str1);
 
       var newMessage = document.createElement('p');

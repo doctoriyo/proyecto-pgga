@@ -3,6 +3,8 @@ import tornado.websocket
 import tornado.ioloop
 import tornado.web
 import json
+from HuidaFoco import *
+
 
 class IndexHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
@@ -37,13 +39,21 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         if mensajedeJS['msg'] == "valor":
             print("*"*20)
 
+        #loquemandare = myfuncion_calcula(mensajedeJS["msg"])
 
-        print(self.connections)
-        for elem in self.connections:
-            elem.write_message({"msg": message + ' a todos'}, binary=False)
+
+        #print(self.connections)
+        #for elem in self.connections:
+        #    elem.write_message({"msg": message + ' a todos'}, binary=False)
 
         # [con.write_message('Hi!') for con in self.connections]
-        self.write_message({"msg": message + ' al que lo manda'})
+
+
+
+        midict = {"msg": message + ' al que lo manda', "posicionesx": matrizposicionx, "posicionesy": matrizposiciony}
+
+
+        self.write_message(midict)
 
     def on_close(self):
         print('connection closed\n')

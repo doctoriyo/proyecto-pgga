@@ -151,7 +151,7 @@ class metodos():
               
         #return g_part.angulo
         
-    def actualiza(self):
+    def actualiza(self, matrizposicionx, matrizposiciony):
         
         #actualiza velocidad y vector de posicion
 
@@ -166,7 +166,7 @@ class metodos():
             g_part[i].posicion = g_part[i].posicion + dt * g_part[i].velocidad
                   
             Cond = cc()
-            Cond.paredes(g_part, i, t , t_in)
+            Cond.paredes(g_part, i, t, t_in)
 
             print('HUIDA VALE: ' + str(Cond.huida))
             #print("¿Se sale? "+ str(Cond.sale))
@@ -181,8 +181,27 @@ class metodos():
 
                     print('TODAS LAS PARTICULAS SALIERON')
 
+                    for u in range(t, stop):
+                        for l in range(n):
+
+                            matrizposicionx[u, l] = np.array(g_part[l].posicion[0])
+                            matrizposiciony[u, l] = np.array(g_part[l].posicion[1])
+
+                    print(matrizposicionx)
+
+                    print(matrizposiciony)
+
+
                     sys.exit()
 
+        #matrizposicionx = np.array[range(n) for i in range(stop)]
+
+        for k in range(n):
+                matrizposicionx[t, k] = np.array(g_part[k].posicion[0])
+                matrizposiciony[t, k] = np.array(g_part[k].posicion[1])
+
+
+        return matrizposicionx, matrizposiciony
 
 class visual():
     def __init__(self, g_part, indice, pos_foco):
@@ -246,7 +265,7 @@ t = 0
 n = 5
 r = 3
 dt = 1
-stop = 200
+stop = 100
 alpha = 0.3 #Inercia a mantener la dirección del instante anterior
 
 t_in = float(input("Introduzca el tiempo : "))
@@ -257,6 +276,10 @@ pos = np.zeros(n)
 v = np.zeros(n)
 g_part = []
 print(g_part)
+
+matrizposicionx = np.empty((stop, n))
+matrizposiciony = np.empty((stop, n))
+#matrizposiciony = [range(n) for i in range(stop)]
 
 for i in range(0,n):
 
@@ -289,7 +312,7 @@ for t in range(stop):
     Play = metodos(n, g_part, v_o, dt, alpha, t , t_in)
     Play.thetamed()
     #print("Thetas med ", g_part.angulo)
-    Play.actualiza()
+    Play.actualiza(matrizposicionx, matrizposiciony)
     #print("x", g_part[0].posicion, g_part[1].posicion, g_part[2].posicion, g_part[3].posicion)
     
     #print("t",t)     
@@ -300,4 +323,11 @@ for t in range(stop):
         visual(g_part, i, pos_foco).dibuja()
         visual(g_part, i, pos_foco).datos_vuelta(t)
             #print("tethas", np.degrees(g_part[i].angulo))
+
+
+print(matrizposicionx)
+
+print(matrizposiciony)
+
+
 plt.show()
